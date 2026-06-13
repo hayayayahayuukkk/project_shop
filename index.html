@@ -4,11 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UMY Event — Manajemen Event Kampus</title>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Orbitron:wght@500;700;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
   :root {
     --navy:    #0A1628;
@@ -188,14 +185,12 @@
     text-decoration: none;
   }
   .nav-brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
-  .nav-tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; flex-shrink: 1; min-width: 0; }
-  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tabs { display: flex; gap: 4px; }
   .nav-tab {
     background: none; border: none; cursor: pointer;
     color: rgba(255,255,255,.55);
     font-family: var(--font-body); font-size: 13px; font-weight: 500;
-    padding: 6px 12px; border-radius: 6px; transition: all .2s;
-    white-space: nowrap; flex-shrink: 0;
+    padding: 6px 14px; border-radius: 6px; transition: all .2s;
   }
   .nav-tab:hover { color: var(--white); background: rgba(255,255,255,.08); }
   .nav-tab.active { color: var(--white); background: var(--accent); }
@@ -722,66 +717,17 @@
     #ai-chat-popup { width:calc(100vw - 32px); right:16px; }
     #ai-chat-btn { bottom:16px; right:16px; }
   }
-  /* ══════════════════ GAME PAGE ══════════════════ */
-  #page-game { background: #050505; min-height: calc(100vh - 60px); position: relative; }
-  .game-landing {
-    min-height: calc(100vh - 60px); display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    background: radial-gradient(ellipse at center, #0d0626 0%, #050505 70%);
-    padding: 32px 24px; text-align: center;
+    .auth-left { display: none; }
+    .auth-right { width: 100%; padding: 36px 24px; }
+    .auth-logo-mobile { display: flex; }
+    .form-grid-2 { grid-template-columns: 1fr; }
+    .stat-grid { grid-template-columns: repeat(2,1fr); }
+    .portal-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 24px; }
+    .hero-stats { gap: 20px; }
+    .cert-sigs { gap: 40px; }
   }
-  .game-title-main {
-    font-family: 'Orbitron', sans-serif; font-size: 48px; font-weight: 900;
-    letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; line-height: 1.1;
-  }
-  .t1 { color: #00FFFF; text-shadow: 0 0 20px rgba(0,255,255,.8), 0 0 40px rgba(0,255,255,.4); }
-  .t2 { color: #FF00FF; text-shadow: 0 0 20px rgba(255,0,255,.8), 0 0 40px rgba(255,0,255,.4); }
-  .game-sub { color: rgba(255,255,255,.45); font-size: 14px; margin-bottom: 40px; max-width: 460px; }
-  .game-mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; max-width: 540px; width: 100%; }
-  .game-mode-card { border: 2px solid; border-radius: 16px; padding: 24px 16px; cursor: pointer; transition: all .25s; text-align: center; background: rgba(0,0,0,.4); }
-  .game-mode-card.cyan { border-color: rgba(0,255,255,.35); }
-  .game-mode-card.pink { border-color: rgba(255,0,255,.35); }
-  .game-mode-card.cyan:hover, .game-mode-card.cyan.sel { background: rgba(0,255,255,.1); border-color: #00FFFF; box-shadow: 0 0 24px rgba(0,255,255,.3); }
-  .game-mode-card.pink:hover, .game-mode-card.pink.sel { background: rgba(255,0,255,.1); border-color: #FF00FF; box-shadow: 0 0 24px rgba(255,0,255,.3); }
-  .game-mode-icon { font-size: 36px; margin-bottom: 8px; }
-  .game-mode-label { font-family: 'Orbitron', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
-  .game-mode-card.cyan .game-mode-label { color: #00FFFF; }
-  .game-mode-card.pink .game-mode-label { color: #FF00FF; }
-  .game-mode-desc { font-size: 12px; color: rgba(255,255,255,.45); line-height: 1.5; }
-  .game-rules { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 16px 24px; margin-bottom: 28px; max-width: 460px; width: 100%; }
-  .game-rules-title { font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 700; color: #fff; letter-spacing: .15em; margin-bottom: 8px; }
-  .game-rules-body { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.7; }
-  .game-btns { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 300px; }
-  .btn-game-cam {
-    font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 14px;
-    padding: 13px 24px; border-radius: 999px; border: none; cursor: pointer;
-    background: #fff; color: #000; transition: all .2s;
-    box-shadow: 0 0 20px rgba(255,255,255,.5);
-  }
-  .btn-game-cam:hover:not(:disabled) { transform: scale(1.04); box-shadow: 0 0 32px rgba(255,255,255,.9); }
-  .btn-game-cam:disabled { background: rgba(255,255,255,.08); color: rgba(255,255,255,.25); box-shadow: none; cursor: not-allowed; }
-  .btn-game-cam.cam-on { background: transparent; color: #00FFFF; border: 2px solid #00FFFF; box-shadow: 0 0 16px rgba(0,255,255,.4); }
-  .btn-game-start {
-    font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 14px;
-    padding: 13px 24px; border-radius: 999px; border: none; cursor: pointer;
-    background: linear-gradient(135deg,#00FFFF,#FF00FF); color: #000;
-    transition: all .2s; box-shadow: 0 0 20px rgba(150,0,255,.4);
-  }
-  .btn-game-start:hover:not(:disabled) { transform: scale(1.04); box-shadow: 0 0 36px rgba(150,0,255,.8); }
-  .btn-game-start:disabled { background: rgba(255,255,255,.07); color: rgba(255,255,255,.2); box-shadow: none; cursor: not-allowed; transform: none; }
-
-  /* fullscreen overlay */
-  #game-overlay { position: fixed; inset: 0; z-index: 800; background: #050505; display: none; flex-direction: column; }
-  #game-overlay.open { display: flex; }
-  #game-overlay-bar { height: 44px; background: rgba(0,0,0,.9); border-bottom: 1px solid rgba(255,255,255,.08); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; flex-shrink: 0; }
-  #game-overlay-bar .go-label { font-family: 'Orbitron', sans-serif; font-size: 12px; font-weight: 700; color: #00FFFF; letter-spacing: .1em; }
-  #btn-close-game { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.7); font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 6px; cursor: pointer; font-family: var(--font-body); transition: all .2s; }
-  #btn-close-game:hover { background: rgba(239,68,68,.25); color: #fff; border-color: rgba(239,68,68,.5); }
-  #game-frame-wrap { flex: 1; position: relative; overflow: hidden; }
-  #game-frame { width: 100%; height: 100%; border: none; display: block; }
-  @media(max-width:600px) { .game-title-main{font-size:28px} .game-mode-grid{grid-template-columns:1fr} }
-
-
+</style>
 </head>
 <body>
 
@@ -1017,7 +963,6 @@
       <button class="nav-tab" data-admin-only onclick="showPage('rekap',this)">Rekap</button>
       <button class="nav-tab" data-admin-only onclick="showPage('manajemen',this)">Manajemen</button>
       <button class="nav-tab" onclick="showPage('profil',this)">Profil</button>
-      <button class="nav-tab" onclick="showPage('game',this)">🎮 Game</button>
     </div>
     <div class="nav-right">
       <span class="role-badge-nav" id="nav-role-badge"></span>
@@ -1601,108 +1546,7 @@
     </div>
   </div>
 
-  <!-- ═══ GAME PAGE ═══ -->
-  <div id="page-game" class="page">
-    <div class="game-landing">
-      <div class="game-title-main">
-        <span class="t1">YOUR FACE</span><br>
-        <span class="t2">PUZZLE</span>
-      </div>
-      <div class="game-sub">Gunakan kamera &amp; tanganmu untuk screenshot wajahmu, lalu susun puzzle dengan menjentikkan jari!</div>
-
-      <div class="game-mode-grid">
-        <div class="game-mode-card cyan" id="gm-single" onclick="selectGameMode('single')">
-          <div class="game-mode-icon">🎮</div>
-          <div class="game-mode-label">SINGLE PLAYER</div>
-          <div class="game-mode-desc">Main sendiri! Selesaikan puzzle wajahmu secepat mungkin.</div>
-        </div>
-        <div class="game-mode-card pink" id="gm-multi" onclick="selectGameMode('multi')">
-          <div class="game-mode-icon">🕹️</div>
-          <div class="game-mode-label">MULTIPLAYER</div>
-          <div class="game-mode-desc">Berdua lebih seru! Siapa yang tercepat, dia yang menang.</div>
-        </div>
-      </div>
-
-      <div class="game-rules">
-        <div class="game-rules-title">📋 ATURAN PERMAINAN</div>
-        <div class="game-rules-body">
-          1. Pilih mode permainan di atas<br>
-          2. Klik <strong style="color:#fff">Nyalakan Kamera</strong> — izinkan akses kamera browser<br>
-          3. Bentangkan 2 tangan untuk membuat kotak di wajahmu<br>
-          4. <strong style="color:#fff">Jentikkan kedua jari</strong> untuk screenshot<br>
-          5. Susun puzzle dengan <strong style="color:#fff">cubit &amp; lepas</strong> menggunakan jari telunjuk &amp; jempol
-        </div>
-      </div>
-
-      <div class="game-btns">
-        <button class="btn-game-cam" id="btn-gm-cam" onclick="startGameCam()">NYALAKAN KAMERA</button>
-        <button class="btn-game-start" id="btn-gm-start" disabled onclick="launchGame()">MULAI GAME</button>
-      </div>
-
-      <div style="margin-top:24px;font-size:11px;color:rgba(255,255,255,.25);font-family:'Orbitron',sans-serif;letter-spacing:.08em">
-        Game by Ronaldo Widianto Siswoyo &nbsp;·&nbsp; @ronaldohauw
-      </div>
-    </div>
-  </div>
-
 </div><!-- /app-shell -->
-
-<!-- ═══ GAME FULLSCREEN OVERLAY ═══ -->
-<div id="game-overlay">
-  <div id="game-overlay-bar">
-    <div class="go-label">🎮 YOUR FACE PUZZLE — <span id="game-mode-label" style="color:#FF00FF"></span></div>
-    <button id="btn-close-game" onclick="closeGame()">✕ Keluar Game</button>
-  </div>
-  <div id="game-frame-wrap" style="position:relative;flex:1;overflow:hidden;background:#050505">
-
-    <!-- MediaPipe video source -->
-    <video id="gv-webcam" autoplay playsinline style="display:none"></video>
-
-    <!-- Game canvas fills entire area -->
-    <canvas id="gv-canvas" style="display:block;width:100%;height:100%;"></canvas>
-
-    <!-- Game UI overlay (main menu inside game) -->
-    <div id="gv-ui" style="position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,5,5,.92);backdrop-filter:blur(4px);">
-      <h1 style="font-family:'Orbitron',sans-serif;font-size:clamp(28px,6vw,52px);font-weight:900;letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px;text-align:center;line-height:1.1">
-        <span style="color:#00FFFF;text-shadow:0 0 20px rgba(0,255,255,.8)">YOUR FACE</span><br>
-        <span style="color:#FF00FF;text-shadow:0 0 20px rgba(255,0,255,.8)">PUZZLE</span>
-      </h1>
-      <p style="color:rgba(255,255,255,.6);font-size:14px;text-align:center;max-width:400px;margin-bottom:28px;padding:0 16px;line-height:1.6">
-        Angkat 2 tangan → bentangkan jempol &amp; telunjuk → jentikkan keduanya untuk foto!<br>
-        Lalu susun puzzle dengan cubit-lepas jari.
-      </p>
-      <!-- mode shown inline -->
-      <div id="gv-mode-badge" style="margin-bottom:24px;padding:8px 20px;border-radius:8px;font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;border:2px solid"></div>
-
-      <div style="display:flex;flex-direction:column;gap:12px;width:100%;max-width:280px;align-items:center">
-        <button id="gv-btn-cam" onclick="gvStartCam()" style="font-family:'Orbitron',sans-serif;font-weight:800;font-size:14px;padding:12px 24px;border-radius:999px;border:none;cursor:pointer;background:#fff;color:#000;width:100%;box-shadow:0 0 20px rgba(255,255,255,.5);transition:all .2s">
-          NYALAKAN KAMERA
-        </button>
-        <button id="gv-btn-start" onclick="gvStartGame()" disabled style="font-family:'Orbitron',sans-serif;font-weight:800;font-size:14px;padding:12px 24px;border-radius:999px;border:none;cursor:not-allowed;background:rgba(255,255,255,.07);color:rgba(255,255,255,.25);width:100%;transition:all .2s">
-          MULAI GAME
-        </button>
-      </div>
-      <div style="margin-top:20px;font-size:10px;color:rgba(255,255,255,.2);font-family:'Orbitron',sans-serif;letter-spacing:.08em;text-align:center">
-        by Ronaldo Widianto Siswoyo · @ronaldohauw
-      </div>
-    </div>
-
-    <!-- Win screen -->
-    <div id="gv-win" style="display:none;position:absolute;inset:0;z-index:20;background:rgba(0,0,0,.88);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:24px">
-      <div id="gv-win-card" style="background:rgba(10,10,20,.95);border:2px solid;border-radius:20px;padding:32px 28px;max-width:420px;width:100%;text-align:center;box-shadow:0 0 40px rgba(0,255,255,.2)">
-        <h2 id="gv-win-title" style="font-family:'Orbitron',sans-serif;font-size:clamp(24px,5vw,40px);font-weight:900;margin-bottom:20px;text-transform:uppercase"></h2>
-        <div style="border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:8px;display:inline-block;margin-bottom:16px">
-          <img id="gv-win-img" style="width:200px;height:200px;object-fit:cover;border-radius:6px;display:block">
-        </div>
-        <p id="gv-win-time" style="font-family:'Orbitron',sans-serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:24px;text-shadow:0 0 10px rgba(255,255,255,.5)"></p>
-        <button onclick="gvPlayAgain()" style="font-family:'Orbitron',sans-serif;font-weight:800;font-size:16px;padding:13px 32px;border-radius:999px;border:none;cursor:pointer;background:#fff;color:#000;width:100%;box-shadow:0 0 20px rgba(255,255,255,.6)">
-          MAIN LAGI
-        </button>
-      </div>
-    </div>
-
-  </div>
-</div>
 
 <!-- ═══ AI CHAT WIDGET ═══ -->
 <button id="ai-chat-btn" onclick="toggleChat()" title="Chat dengan AI Asisten">
@@ -1762,14 +1606,14 @@ let USERS = [
 
 // Hak akses per peran
 const ACCESS_MATRIX = {
-  admin:   { dashboard:true, register:true, absensi:true, sertifikat:true, rekap:true, manajemen:true, profil:true, tiketify:true, game:true },
-  panitia: { dashboard:true, register:true, absensi:true, sertifikat:false, rekap:true, manajemen:false, profil:true, tiketify:true, game:true },
-  user:    { dashboard:true, register:true, absensi:false, sertifikat:false, rekap:false, manajemen:false, profil:true, tiketify:true, game:true },
+  admin:   { dashboard:true, register:true, absensi:true, sertifikat:true, rekap:true, manajemen:true, profil:true, tiketify:true },
+  panitia: { dashboard:true, register:true, absensi:true, sertifikat:false, rekap:true, manajemen:false, profil:true, tiketify:true },
+  user:    { dashboard:true, register:true, absensi:false, sertifikat:false, rekap:false, manajemen:false, profil:true, tiketify:true },
 };
 
 const PAGE_LABELS = {
   dashboard:'Dashboard', register:'Pendaftaran', absensi:'Absensi',
-  sertifikat:'Sertifikat', rekap:'Rekap', manajemen:'Manajemen User', profil:'Profil', tiketify:'Tiketify', game:'Game'
+  sertifikat:'Sertifikat', rekap:'Rekap', manajemen:'Manajemen User', profil:'Profil', tiketify:'Tiketify'
 };
 
 let registrations = [
@@ -2115,7 +1959,6 @@ function showPage(id, btn) {
   if(id==='profil')     { loadProfile(); renderMyRegistrations(); }
   if(id==='dashboard')  { renderDashboard(); }
   if(id==='tiketify')   { renderTiketify(); }
-  if(id==='game')       { initGamePage(); }
 }
 
 function switchTab(btn, tabId) {
@@ -2630,293 +2473,6 @@ function exportCSV() {
   a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
   a.download='rekap-peserta.csv'; a.click();
   toast('File CSV berhasil diunduh!');
-}
-
-// ═══════════════════════════════════════════════════
-//  GAME — FACE PUZZLE (fully embedded, no iframe)
-// ═══════════════════════════════════════════════════
-
-const GV = {
-  mode: null, camReady: false, playing: false,
-  players: [], hands: null, camera: null, camStarted: false,
-  PINCH: 60,
-  CONN: [[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],[5,9],[9,10],[10,11],[11,12],
-         [9,13],[13,14],[14,15],[15,16],[13,17],[0,17],[17,18],[18,19],[19,20]],
-  C1: '#00FFFF', C2: '#FF00FF',
-};
-
-function initGamePage() {
-  document.getElementById('gm-single').classList.remove('sel');
-  document.getElementById('gm-multi').classList.remove('sel');
-  GV.mode = null;
-  const cb = document.getElementById('btn-gm-cam');
-  if(cb) { cb.textContent='NYALAKAN KAMERA'; cb.className='btn-game-cam'; cb.disabled=false; }
-  const sb = document.getElementById('btn-gm-start');
-  if(sb) sb.disabled = true;
-}
-
-function selectGameMode(mode) {
-  GV.mode = mode;
-  document.getElementById('gm-single').classList.toggle('sel', mode==='single');
-  document.getElementById('gm-multi').classList.toggle('sel', mode==='multi');
-  const sb = document.getElementById('btn-gm-start');
-  if(sb) sb.disabled = !(GV.camReady && GV.mode);
-}
-
-function startGameCam() {
-  const isSecure = location.protocol==='https:' || location.hostname==='localhost' || location.hostname==='127.0.0.1';
-  if(!isSecure) { toast('\u26a0\ufe0f Kamera butuh HTTPS!'); return; }
-  const btn = document.getElementById('btn-gm-cam');
-  btn.textContent='MEMUAT KAMERA...'; btn.disabled=true;
-  navigator.mediaDevices.getUserMedia({video:true})
-    .then(stream => {
-      stream.getTracks().forEach(t=>t.stop());
-      GV.camReady = true;
-      btn.textContent='KAMERA AKTIF \u2713'; btn.className='btn-game-cam cam-on';
-      const sb = document.getElementById('btn-gm-start');
-      if(sb && GV.mode) sb.disabled=false;
-      toast('\u2705 Kamera siap!');
-    })
-    .catch(() => {
-      btn.textContent='NYALAKAN KAMERA'; btn.disabled=false;
-      toast('\u26a0\ufe0f Akses kamera ditolak.');
-    });
-}
-
-function launchGame() {
-  if(!GV.camReady || !GV.mode) { toast('Pilih mode dan aktifkan kamera dulu!'); return; }
-  document.getElementById('game-overlay').classList.add('open');
-  document.getElementById('ai-chat-btn').style.display='none';
-  document.getElementById('ai-chat-popup').classList.remove('open');
-  const badge = document.getElementById('gv-mode-badge');
-  const isMulti = GV.mode==='multi';
-  badge.textContent = isMulti ? 'MODE: MULTIPLAYER' : 'MODE: SINGLE PLAYER';
-  badge.style.borderColor = isMulti ? GV.C2 : GV.C1;
-  badge.style.color = isMulti ? GV.C2 : GV.C1;
-  badge.style.background = isMulti ? 'rgba(255,0,255,.08)' : 'rgba(0,255,255,.08)';
-  document.getElementById('game-mode-label').textContent = isMulti ? 'MULTIPLAYER' : 'SINGLE PLAYER';
-  const wrap = document.getElementById('game-frame-wrap');
-  const canvas = document.getElementById('gv-canvas');
-  canvas.width = wrap.clientWidth;
-  canvas.height = wrap.clientHeight;
-  if(!GV.hands) gvInitMediaPipe();
-}
-
-function gvInitMediaPipe() {
-  if(typeof Hands === 'undefined' || typeof Camera === 'undefined') {
-    toast('\u26a0\ufe0f MediaPipe belum dimuat. Coba refresh halaman.'); return;
-  }
-  const video  = document.getElementById('gv-webcam');
-  const canvas = document.getElementById('gv-canvas');
-  const ctx    = canvas.getContext('2d', {willReadFrequently:true});
-  GV.ctx = ctx;
-  GV.hands = new Hands({ locateFile: f => 'https://cdn.jsdelivr.net/npm/@mediapipe/hands/'+f });
-  GV.hands.setOptions({ maxNumHands:4, modelComplexity:1, minDetectionConfidence:.7, minTrackingConfidence:.7 });
-  GV.hands.onResults(r => gvOnResults(r, canvas, ctx));
-  GV.camera = new Camera(video, {
-    onFrame: async () => { if(GV.hands) await GV.hands.send({image: video}); },
-    width:1280, height:720
-  });
-  GV.camera.start().then(() => {
-    const cb = document.getElementById('gv-btn-cam');
-    cb.textContent='KAMERA AKTIF \u2713';
-    cb.style.cssText='font-family:Orbitron,sans-serif;font-weight:800;font-size:14px;padding:12px 24px;border-radius:999px;border:2px solid #00FFFF;cursor:default;background:transparent;color:#00FFFF;width:100%;box-shadow:0 0 14px rgba(0,255,255,.4);transition:all .2s';
-    cb.disabled=true;
-    const sb=document.getElementById('gv-btn-start');
-    sb.disabled=false;
-    sb.style.cssText='font-family:Orbitron,sans-serif;font-weight:800;font-size:14px;padding:12px 24px;border-radius:999px;border:none;cursor:pointer;background:linear-gradient(135deg,#00FFFF,#FF00FF);color:#000;width:100%;box-shadow:0 0 20px rgba(150,0,255,.5);transition:all .2s';
-    GV.camStarted=true;
-  }).catch(e => { toast('\u26a0\ufe0f Gagal mengakses kamera: '+e.message); });
-}
-
-function gvStartCam() {
-  const btn = document.getElementById('gv-btn-cam');
-  btn.textContent='MEMUAT...'; btn.disabled=true;
-  if(!GV.hands) gvInitMediaPipe();
-}
-
-function gvStartGame() {
-  if(!GV.camStarted) return;
-  document.getElementById('gv-ui').style.display='none';
-  const canvas=document.getElementById('gv-canvas');
-  GV.playing=true; GV.players=[];
-  if(GV.mode==='single') {
-    GV.players.push(new GVPlayer(1,{x:0,y:0,w:canvas.width,h:canvas.height},GV.C1));
-  } else {
-    let hw=canvas.width/2;
-    GV.players.push(new GVPlayer(1,{x:0,y:0,w:hw,h:canvas.height},GV.C1));
-    GV.players.push(new GVPlayer(2,{x:hw,y:0,w:hw,h:canvas.height},GV.C2));
-  }
-}
-
-function gvPlayAgain() {
-  document.getElementById('gv-win').style.display='none';
-  document.getElementById('gv-ui').style.display='flex';
-  GV.playing=false; GV.players=[];
-}
-
-function closeGame() {
-  document.getElementById('game-overlay').classList.remove('open');
-  if(GV.camera) { try{ GV.camera.stop(); }catch(_){} GV.camera=null; GV.hands=null; GV.camStarted=false; }
-  GV.playing=false; GV.players=[];
-  document.getElementById('gv-ui').style.display='flex';
-  document.getElementById('gv-win').style.display='none';
-  const cb=document.getElementById('gv-btn-cam');
-  cb.textContent='NYALAKAN KAMERA'; cb.disabled=false;
-  cb.style.cssText='font-family:Orbitron,sans-serif;font-weight:800;font-size:14px;padding:12px 24px;border-radius:999px;border:none;cursor:pointer;background:#fff;color:#000;width:100%;box-shadow:0 0 20px rgba(255,255,255,.5);transition:all .2s';
-  const sb=document.getElementById('gv-btn-start');
-  sb.disabled=true;
-  sb.style.cssText='font-family:Orbitron,sans-serif;font-weight:800;font-size:14px;padding:12px 24px;border-radius:999px;border:none;cursor:not-allowed;background:rgba(255,255,255,.07);color:rgba(255,255,255,.25);width:100%;transition:all .2s';
-  document.getElementById('ai-chat-btn').style.display='';
-  toast('\U0001f3ae Game ditutup.');
-}
-
-function gvOnResults(results, canvas, ctx) {
-  const wrap=document.getElementById('game-frame-wrap');
-  if(canvas.width!==wrap.clientWidth||canvas.height!==wrap.clientHeight){ canvas.width=wrap.clientWidth; canvas.height=wrap.clientHeight; }
-  ctx.save(); ctx.clearRect(0,0,canvas.width,canvas.height);
-  const cr=canvas.width/canvas.height, vr=results.image.width/results.image.height;
-  let dw,dh,dx,dy;
-  if(cr>vr){dw=canvas.width;dh=dw/vr;dx=0;dy=(canvas.height-dh)/2;}
-  else{dh=canvas.height;dw=dh*vr;dy=0;dx=(canvas.width-dw)/2;}
-  ctx.translate(canvas.width,0); ctx.scale(-1,1);
-  ctx.filter='brightness(0.45)'; ctx.drawImage(results.image,dx,dy,dw,dh);
-  ctx.filter='none'; ctx.restore();
-  let mappedHands=[];
-  if(results.multiHandLandmarks){
-    for(const lm of results.multiHandLandmarks){
-      let m=lm.map(p=>{ let x=p.x*dw+dx; let y=p.y*dh+dy; x=canvas.width-x; return{x,y,z:p.z}; });
-      mappedHands.push(m);
-    }
-  }
-  if(GV.playing && GV.players.length>0){
-    if(GV.mode==='multi'){
-      ctx.save(); ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.shadowColor='white'; ctx.shadowBlur=8; ctx.lineWidth=3;
-      ctx.beginPath(); ctx.moveTo(canvas.width/2,0); ctx.lineTo(canvas.width/2,canvas.height); ctx.stroke(); ctx.restore();
-    }
-    let p1h=[], p2h=[];
-    if(GV.mode==='single') p1h=mappedHands;
-    else mappedHands.forEach(h=>{ let ax=h.reduce((s,l)=>s+l.x,0)/h.length; if(ax<canvas.width/2) p1h.push(h); else p2h.push(h); });
-    if(GV.players[0]) GV.players[0].update(p1h, canvas, ctx);
-    if(GV.players[1]) GV.players[1].update(p2h, canvas, ctx);
-    if(GV.mode==='multi'){
-      if(GV.players.every(p=>p.state!=='CALIBRATING'))
-        GV.players.forEach(p=>{ if(p.state==='WAITING') p.startPlaying(); });
-    }
-    if(GV.mode==='single') mappedHands.forEach(h=>gvSkeleton(h,GV.C1,ctx));
-    else mappedHands.forEach(h=>{ let ax=h.reduce((s,l)=>s+l.x,0)/h.length; gvSkeleton(h,ax<canvas.width/2?GV.C1:GV.C2,ctx); });
-  } else {
-    mappedHands.forEach(h=>gvSkeleton(h,'#fff',ctx));
-  }
-}
-
-function gvSkeleton(lm,color,ctx){
-  ctx.save(); ctx.strokeStyle=color; ctx.fillStyle=color; ctx.shadowColor=color; ctx.shadowBlur=10; ctx.lineWidth=2.5;
-  GV.CONN.forEach(c=>{ ctx.beginPath(); ctx.moveTo(lm[c[0]].x,lm[c[0]].y); ctx.lineTo(lm[c[1]].x,lm[c[1]].y); ctx.stroke(); });
-  lm.forEach(p=>{ ctx.beginPath(); ctx.arc(p.x,p.y,4,0,Math.PI*2); ctx.fill(); });
-  ctx.restore();
-}
-
-function gvDist(a,b){ return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2); }
-
-class GVPlayer {
-  constructor(id,bounds,color){
-    this.id=id; this.bounds=bounds; this.color=color;
-    this.state='CALIBRATING'; this.box=null; this.pieces=[]; this.slots=[];
-    this.held=-1; this.t0=null; this.elapsed=0; this.timer=null; this.pinching=false;
-  }
-  update(hands,canvas,ctx){
-    if(this.state==='CALIBRATING') this.calibrate(hands,canvas,ctx);
-    else if(this.state==='WAITING') this.drawWait(ctx,false);
-    else if(this.state==='PLAYING') this.gameplay(hands,canvas,ctx);
-    else if(this.state==='LOSE')    this.drawWait(ctx,true);
-  }
-  calibrate(hands,canvas,ctx){
-    ctx.save();
-    ctx.fillStyle=this.color; ctx.shadowColor=this.color; ctx.shadowBlur=10;
-    ctx.font='bold '+Math.min(22,canvas.width*.028)+'px Orbitron,sans-serif'; ctx.textAlign='center';
-    let mx=this.bounds.x+this.bounds.w/2;
-    ctx.fillText('P'+this.id+': Angkat 2 Tangan',mx,50);
-    ctx.font=Math.min(15,canvas.width*.02)+'px Segoe UI,sans-serif'; ctx.shadowBlur=4;
-    ctx.fillText('Bentangkan jempol & telunjuk, lalu jentikkan!',mx,76);
-    ctx.restore();
-    if(hands.length<2) return;
-    let hA=hands[0], hB=hands[1];
-    let lh=hA[0].x<hB[0].x?hA:hB, rh=hA[0].x<hB[0].x?hB:hA;
-    let pLT=lh[4], pRI=rh[8];
-    let l=Math.min(pLT.x,pRI.x), r=Math.max(pLT.x,pRI.x);
-    let t=Math.min(pLT.y,pRI.y), b=Math.max(pLT.y,pRI.y);
-    let w=r-l, h=b-t;
-    if(w<50||h<50) return;
-    this.box={x:l,y:t,w,h};
-    ctx.save(); ctx.strokeStyle='#fff'; ctx.shadowColor='#fff'; ctx.shadowBlur=15; ctx.lineWidth=4;
-    ctx.strokeRect(l,t,w,h); ctx.restore();
-    let pL=gvDist(lh[4],lh[8])<GV.PINCH;
-    let pR=gvDist(rh[4],rh[8])<GV.PINCH;
-    [[pL,lh],[pR,rh]].filter(x=>x[0]).forEach(([,hand])=>{
-      ctx.save(); ctx.strokeStyle='#fff'; ctx.shadowColor='#fff'; ctx.shadowBlur=18; ctx.lineWidth=5;
-      ctx.beginPath(); ctx.moveTo(hand[4].x,hand[4].y); ctx.lineTo(hand[8].x,hand[8].y); ctx.stroke(); ctx.restore();
-    });
-    if(pL&&pR) this.capture(canvas,ctx);
-  }
-  capture(canvas,ctx){
-    let img=ctx.getImageData(this.box.x,this.box.y,this.box.w,this.box.h);
-    let tc=document.createElement('canvas'); tc.width=this.box.w; tc.height=this.box.h;
-    tc.getContext('2d').putImageData(img,0,0);
-    let pw=this.box.w/3, ph=this.box.h/3;
-    this.pieces=[]; this.slots=[];
-    for(let i=0;i<9;i++){
-      let row=Math.floor(i/3), col=i%3;
-      let px=this.box.x+col*pw, py=this.box.y+row*ph;
-      this.slots.push({x:px,y:py,w:pw,h:ph});
-      let pc=document.createElement('canvas'); pc.width=pw; pc.height=ph;
-      pc.getContext('2d').drawImage(tc,col*pw,row*ph,pw,ph,0,0,pw,ph);
-      this.pieces.push({id:i,slot:i,img:pc,dx:px,dy:py});
-    }
-    let si=[0,1,2,3,4,5,6,7,8];
-    for(let i=si.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [si[i],si[j]]=[si[j],si[i]]; }
-    this.pieces.forEach((p,idx)=>{ p.slot=si[idx]; this.snap(p); });
-    if(GV.mode==='multi') this.state='WAITING'; else this.startPlaying();
-  }
-  snap(p){ let s=this.slots[p.slot]; p.dx=s.x; p.dy=s.y; }
-  startPlaying(){ this.state='PLAYING'; this.t0=Date.now(); this.timer=setInterval(()=>{ this.elapsed=Math.floor((Date.now()-this.t0)/1000); },1000); }
-  drawWait(ctx,lose){
-    this.pieces.forEach(p=>{ ctx.drawImage(p.img,p.dx,p.dy); ctx.strokeStyle='rgba(255,255,255,.15)'; ctx.lineWidth=1; ctx.strokeRect(p.dx,p.dy,p.img.width,p.img.height); });
-    if(!lose){ ctx.save(); ctx.fillStyle=this.color; ctx.shadowColor=this.color; ctx.shadowBlur=8; ctx.font="bold 20px Orbitron,sans-serif"; ctx.textAlign='center'; ctx.fillText('Menunggu lawan...',this.bounds.x+this.bounds.w/2,48); ctx.restore(); }
-  }
-  gameplay(hands,canvas,ctx){
-    ctx.save(); ctx.strokeStyle='rgba(255,255,255,.15)'; ctx.lineWidth=1;
-    this.slots.forEach(s=>ctx.strokeRect(s.x,s.y,s.w,s.h)); ctx.restore();
-    let cursor=null, pin=false;
-    if(hands.length>0){
-      let h=hands[0]; cursor={x:(h[4].x+h[8].x)/2,y:(h[4].y+h[8].y)/2}; pin=gvDist(h[4],h[8])<GV.PINCH;
-      ctx.save();
-      let pulse=pin?Math.abs(Math.sin(Date.now()/120))*6:0; let r=pin?12+pulse:7;
-      ctx.fillStyle=pin?this.color:'rgba(255,255,255,.85)'; ctx.shadowColor=pin?this.color:'white'; ctx.shadowBlur=pin?18+pulse*2:8;
-      if(pin){ ctx.strokeStyle=this.color; ctx.lineWidth=3+pulse/2; ctx.beginPath(); ctx.moveTo(h[4].x,h[4].y); ctx.lineTo(h[8].x,h[8].y); ctx.stroke(); ctx.beginPath(); ctx.arc(cursor.x,cursor.y,r+10,0,Math.PI*2); ctx.lineWidth=2; ctx.stroke(); }
-      ctx.beginPath(); ctx.arc(cursor.x,cursor.y,r,0,Math.PI*2); ctx.fill(); ctx.restore();
-    }
-    if(pin&&!this.pinching){ this.pinching=true; if(cursor&&this.held===-1){ for(let i=0;i<this.pieces.length;i++){ let p=this.pieces[i]; let s=this.slots[p.slot]; if(cursor.x>=s.x&&cursor.x<=s.x+s.w&&cursor.y>=s.y&&cursor.y<=s.y+s.h){ this.held=i; break; } } } }
-    else if(pin&&this.pinching){ if(this.held!==-1&&cursor){ let p=this.pieces[this.held]; p.dx=cursor.x-this.slots[0].w/2; p.dy=cursor.y-this.slots[0].h/2; } }
-    else if(!pin&&this.pinching){ this.pinching=false; if(this.held!==-1&&cursor){ let hp=this.pieces[this.held]; let ti=-1; let md=Infinity; for(let i=0;i<this.slots.length;i++){ let s=this.slots[i]; let d=gvDist(cursor,{x:s.x+s.w/2,y:s.y+s.h/2}); if(d<md){md=d;ti=i;} } if(ti!==-1&&ti!==hp.slot){ let pit=this.pieces.find(p=>p.slot===ti); if(pit){ pit.slot=hp.slot; this.snap(pit); } hp.slot=ti; } this.snap(hp); this.held=-1; this.checkWin(); } }
-    this.pieces.forEach((p,i)=>{ if(i!==this.held){ ctx.drawImage(p.img,p.dx,p.dy); ctx.strokeStyle='#1a1a1a'; ctx.lineWidth=1.5; ctx.strokeRect(p.dx,p.dy,p.img.width,p.img.height); } });
-    if(this.held!==-1){ let p=this.pieces[this.held]; ctx.globalAlpha=.82; ctx.drawImage(p.img,p.dx,p.dy); ctx.globalAlpha=1; ctx.save(); let pg=Math.abs(Math.sin(Date.now()/150))*14; ctx.strokeStyle=this.color; ctx.shadowColor=this.color; ctx.shadowBlur=14+pg; ctx.lineWidth=3+pg/5; ctx.strokeRect(p.dx,p.dy,p.img.width,p.img.height); ctx.restore(); }
-    ctx.save(); ctx.fillStyle=this.color; ctx.shadowColor=this.color; ctx.shadowBlur=12; ctx.font='bold '+Math.min(28,canvas.width*.032)+'px Orbitron,sans-serif'; ctx.textAlign='center'; ctx.fillText('WAKTU: '+this.fmt(this.elapsed),this.bounds.x+this.bounds.w/2,46); ctx.restore();
-  }
-  checkWin(){
-    if(!this.pieces.every(p=>p.id===p.slot)||this.state==='SOLVED') return;
-    this.state='SOLVED'; clearInterval(this.timer);
-    if(GV.mode==='multi'){ let loser=GV.players.find(x=>x.id!==this.id); if(loser){ loser.state='LOSE'; clearInterval(loser.timer); } }
-    let tc=document.createElement('canvas'); tc.width=this.box.w; tc.height=this.box.h;
-    let tctx=tc.getContext('2d'); this.pieces.forEach(p=>tctx.drawImage(p.img,p.dx-this.box.x,p.dy-this.box.y));
-    const winDiv=document.getElementById('gv-win'), wt=document.getElementById('gv-win-title'), wc=document.getElementById('gv-win-card');
-    document.getElementById('gv-win-img').src=tc.toDataURL();
-    document.getElementById('gv-win-time').textContent='WAKTU: '+this.fmt(this.elapsed);
-    if(GV.mode==='multi'){ wt.textContent='PLAYER '+this.id+' MENANG! \U0001f3c6'; wt.style.color=this.color; wt.style.textShadow='0 0 20px '+this.color; wc.style.borderColor=this.color; wc.style.boxShadow='0 0 36px '+this.color+'55'; }
-    else { wt.textContent='SELESAI! \U0001f389'; wt.style.color=GV.C1; wt.style.textShadow='0 0 20px '+GV.C1; wc.style.borderColor=GV.C1; wc.style.boxShadow='0 0 36px '+GV.C1+'55'; }
-    GV.playing=false; winDiv.style.display='flex';
-  }
-  fmt(s){ return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); }
 }
 
 // ═══════════════════════════════════════════════════
